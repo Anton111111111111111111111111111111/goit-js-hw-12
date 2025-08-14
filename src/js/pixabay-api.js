@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function getImagesByQuery(query) {
+export async function getImagesByQuery(query) {
   const BASE_URL = 'https://pixabay.com/';
   const END_POINT = 'api/';
   const API_KEY = '34575969-428170e5bc4fca7f33bfb3efe';
@@ -12,14 +12,11 @@ export function getImagesByQuery(query) {
     safesearch: true,
   });
   const url = `${BASE_URL}${END_POINT}`;
-
-  return axios
-    .get(url, { params })
-    .then(response => {
-      return response.data;
-    })
-    .catch(error => {
-      console.error('Помилка при отриманні зображень:', error.message);
-      throw error;
-    });
+  try {
+    const response = await axios.get(url, { params });
+    return response.data;
+  } catch (error) {
+    console.error('Помилка при отриманні зображень:', error.message);
+    throw error;
+  }
 }

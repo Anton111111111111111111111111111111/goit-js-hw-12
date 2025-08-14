@@ -7,16 +7,19 @@ import {
   clearGallery,
   showLoader,
   hideLoader,
+  showLoadMoreButton,
+  hideLoadMoreButton,
 } from './js/render-functions.js';
 
 const formElem = document.querySelector('.form');
 const inputElem = document.querySelector('.input-text');
 
-formElem.addEventListener('submit', e => {
+let query = ''; /////////!!!!!!!!!
+formElem.addEventListener('submit', async e => {
   e.preventDefault();
 
   clearGallery();
-  const query = inputElem.value.trim();
+  query = inputElem.value.trim(); ////////!!!!!!!!!!!!!
 
   if (query === '') {
     iziToast.error({
@@ -29,28 +32,29 @@ formElem.addEventListener('submit', e => {
   inputElem.value = '';
 
   showLoader();
-  getImagesByQuery(query)
-    .then(data => {
-      if (data.hits.length === 0) {
-        iziToast.error({
-          title: 'Error',
-          message:
-            'Sorry, there are no images matching your search query. Please, try again!',
-          position: 'topRight',
-        });
-        return;
-      }
+  try {
+    const data = await getImagesByQuery(query);
 
-      createGallery(data.hits);
-    })
-    .catch(error => {
+    if (data.hits.length === 0) {
       iziToast.error({
         title: 'Error',
-        message: 'Something went wrong. Please try again later...',
+        message:
+          'Sorry, there are no images matching your search query. Please, try again!',
         position: 'topRight',
       });
-    })
-    .finally(() => {
       hideLoader();
+      return;
+    }
+
+    createGallery(data.hits);
+    showLoadMoreButton();
+  } catch (error) {
+    iziToast.error({
+      title: 'Error',
+      message: 'Something went wrong. Please try again later...',
+      position: 'topRight',
     });
+  }
+
+  hideLoader();
 });

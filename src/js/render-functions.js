@@ -3,9 +3,10 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const listElem = document.querySelector('.gallery');
 const loaderElem = document.querySelector('.loader');
+const loadMoreElem = document.querySelector('.js-more');
 
 let lightbox;
-export function createGallery(images) {
+export async function createGallery(images) {
   const markup = images
     .map(
       image =>
@@ -61,4 +62,11 @@ export function showLoader() {
 }
 export function hideLoader() {
   loaderElem.classList.remove('is-visible');
+}
+
+export function showLoadMoreButton() {
+  loadMoreElem.classList.remove('hidden');
+}
+export function hideLoadMoreButton() {
+  loadMoreElem.classList.add('hidden');
 }

@@ -68,7 +68,7 @@ main:has(.back-link) {
 }
 
 .btn {
-  width: 75px;
+  width: 120px;
   height: 40px;
   border-radius: 8px;
   background-color: #4e75ff;
@@ -139,4 +139,16 @@ main:has(.back-link) {
 .info-title,
 .info-text {
   font-size: 12px;
+}
+
+.gallery-wrap {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.hidden {
+  display: none;
 }
