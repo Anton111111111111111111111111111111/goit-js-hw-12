@@ -10,7 +10,8 @@ export async function createGallery(images) {
   const markup = images
     .map(
       image =>
-        `<a class="gallery-link" href="${image.largeImageURL}">
+        `
+      <a class="gallery-link" href="${image.largeImageURL}">
       <img
         class="gallery-image"
         src="${image.webformatURL}"
@@ -18,24 +19,24 @@ export async function createGallery(images) {
         width='360'
         height="200"
       />
-      <li class="img-info-list">
-        <div class="info-item">
+      <ul class="img-info-list">
+        <li class="info-item">
           <h2 class="info-title">Likes</h2>
           <p class="info-text">${image.likes}</p>
-        </div>
-        <div class="info-item">
+        </li>
+        <li class="info-item">
           <h2 class="info-title">Views</h2>
           <p class="info-text">${image.views}</p>
-        </div>
-        <div class="info-item">
+        </li>
+        <li class="info-item">
           <h2 class="info-title">Comments</h2>
           <p class="info-text">${image.comments}</p>
-        </div>
-        <div class="info-item">
+        </li>
+        <li class="info-item">
           <h2 class="info-title">Downloads</h2>
             <p class="info-text">${image.downloads}</p>
-        </div>
-      </li>
+        </li>
+      </ul>
     </a>`
     )
     .join('\n');
